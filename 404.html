@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page not found — Yisu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400&family=Archivo:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="style.css">
+<style>
+  .nf-title {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    line-height: 1.02;
+    letter-spacing: -0.01em;
+    max-width: 16ch;
+    margin: 0;
+  }
+  .nf-actions {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav nav--solid">
+  <a href="index.html" class="nav-mark">Yisu</a>
+  <ul class="nav-links">
+    <li><a href="index.html#story">Story</a></li>
+    <li><a href="index.html#team">Manager</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="yisu-beauty-gallery.html">Gallery</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <a href="yisu-booking.html" class="nav-cta">Book</a>
+</nav>
+
+<section style="min-height:100svh; display:flex; flex-direction:column; justify-content:center; padding:0 var(--edge); background:var(--ink); color:var(--paper);">
+  <p class="section-kicker" style="color:var(--stone);">404</p>
+  <h1 class="nf-title">This page didn't make the cut</h1>
+  <p class="section-lede" style="color:var(--stone); margin-top:20px;">Whatever you were looking for isn't here — it may have moved, or the link was mistyped.</p>
+  <div class="nf-actions">
+    <a href="index.html" class="btn btn-solid">Back to home</a>
+    <a href="services.html" class="btn btn-ghost">View services</a>
+  </div>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>

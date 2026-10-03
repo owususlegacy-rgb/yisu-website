@@ -1,0 +1,566 @@
+/* ============================================================
+   BOOKING WIZARD — monochrome, matches Yisu design system.
+   Loaded in addition to style.css on booking pages only.
+   ============================================================ */
+
+.book-wrap {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 5rem;
+}
+
+.booker {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .booker { grid-template-columns: 1fr; }
+}
+
+/* ---- step indicator ---- */
+.steps {
+  display: flex;
+  gap: 0;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+  border: 1px solid var(--line);
+}
+
+.steps span {
+  flex: 1;
+  min-width: 120px;
+  font-size: 9.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--grey);
+  padding: 14px 12px;
+  text-align: center;
+  border-right: 1px solid var(--line);
+  transition: all 0.35s var(--ease);
+}
+
+.steps span:last-child { border-right: none; }
+.steps span.on { background: var(--black); color: var(--white); }
+.steps span.done { color: var(--black); }
+
+/* ---- panels ---- */
+.panel { display: none; }
+.panel.on { display: block; animation: dropdownOpen 0.45s var(--ease); }
+
+.panel h3 {
+  font-family: var(--display);
+  font-size: clamp(1.4rem, 3vw, 1.9rem);
+  font-weight: 400;
+  color: var(--black);
+  margin: 0 0 8px;
+}
+
+.panel .hint {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--grey);
+  margin: 0 0 1.75rem;
+  line-height: 1.6;
+}
+
+/* ---- service chips ---- */
+.cat-drop {
+  border-bottom: 1px solid var(--line);
+}
+
+.cat-drop:first-child {
+  border-top: 1px solid var(--line);
+}
+
+.cat-drop-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 4px;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+}
+
+.cat-drop-head::-webkit-details-marker { display: none; }
+.cat-drop-head::marker { content: ""; }
+
+.cat-drop-name {
+  font-family: var(--display);
+  font-size: 19px;
+  font-weight: 400;
+  color: var(--ink);
+}
+
+.cat-drop-meta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.cat-drop-count {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--grey);
+  white-space: nowrap;
+  transition: color 0.3s var(--ease);
+}
+
+.cat-drop-count.has-selection {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.cat-drop-arrow {
+  width: 10px;
+  height: 10px;
+  border-right: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  transform: rotate(45deg);
+  transition: transform 0.35s var(--ease);
+  flex-shrink: 0;
+}
+
+.cat-drop[open] > .cat-drop-head .cat-drop-arrow {
+  transform: rotate(-135deg);
+}
+
+.cat-drop .chips {
+  padding: 4px 4px 22px;
+}
+
+/* smooth open/close */
+.cat-drop .chips {
+  animation: dropdownOpen 0.35s var(--ease);
+}
+
+.chips {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+}
+
+.chip {
+  text-align: left;
+  background: var(--white);
+  border: 1px solid var(--line);
+  cursor: pointer;
+  padding: 16px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 3px 10px;
+  font-family: inherit;
+  transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
+}
+
+.chip:hover { border-color: var(--black); }
+
+.chip.on {
+  border-color: var(--black);
+  background: var(--black);
+}
+
+.chip b {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 16px;
+  color: var(--black);
+  line-height: 1.2;
+}
+
+.chip.on b, .chip.on .p, .chip.on small { color: var(--white); }
+
+.chip .p {
+  font-size: 13px;
+  color: var(--black);
+  text-align: right;
+}
+
+.chip small {
+  grid-column: 1 / -1;
+  color: var(--grey);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ---- days ---- */
+.days {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  scrollbar-width: thin;
+}
+
+.day {
+  flex: none;
+  width: 72px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  cursor: pointer;
+  padding: 12px 6px;
+  text-align: center;
+  font-family: inherit;
+  transition: all 0.25s var(--ease);
+}
+
+.day:hover:not(:disabled) { border-color: var(--black); }
+
+.day .dow {
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--grey);
+  display: block;
+}
+
+.day .num {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 1.1;
+  color: var(--black);
+  display: block;
+  margin-top: 3px;
+}
+
+.day .mon {
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--grey);
+  display: block;
+}
+
+.day.on { background: var(--black); border-color: var(--black); }
+.day.on .dow, .day.on .mon { color: rgba(255,255,255,0.6); }
+.day.on .num { color: var(--white); }
+.day:disabled { opacity: 0.25; cursor: not-allowed; }
+
+/* ---- slots ---- */
+.slots {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(78px, 1fr));
+  gap: 8px;
+}
+
+.slot {
+  background: var(--white);
+  border: 1px solid var(--line);
+  padding: 12px 4px;
+  cursor: pointer;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--black);
+  font-family: inherit;
+  transition: all 0.2s var(--ease);
+}
+
+.slot:hover:not(:disabled) { border-color: var(--black); }
+.slot.on { background: var(--black); border-color: var(--black); color: var(--white); }
+.slot:disabled { opacity: 0.28; cursor: not-allowed; text-decoration: line-through; }
+
+.slot-hint {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--grey);
+}
+
+/* ---- fields ---- */
+.fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+@media (max-width: 620px) { .fields { grid-template-columns: 1fr; } }
+
+.field { display: flex; flex-direction: column; gap: 8px; }
+.field.full { grid-column: 1 / -1; }
+
+.field label {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.field input,
+.field textarea {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  color: var(--black);
+  padding: 12px 2px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 300;
+  transition: border-color 0.3s var(--ease);
+}
+
+.field input:focus,
+.field textarea:focus { border-bottom-color: var(--black); outline: none; }
+
+.field .err {
+  color: var(--black);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  display: none;
+}
+
+.field.bad input,
+.field.bad textarea { border-bottom-color: var(--black); }
+.field.bad .err { display: block; }
+
+/* ---- nav buttons ---- */
+.navbtns {
+  display: flex;
+  gap: 12px;
+  margin-top: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.wizard-btn {
+  height: 54px;
+  padding: 0 34px;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 10.5px;
+  font-weight: 400;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.4s var(--ease), color 0.4s var(--ease), transform 0.3s var(--ease);
+}
+
+.wizard-btn.solid {
+  background: var(--black);
+  color: var(--white);
+  border: 1px solid var(--black);
+}
+
+.wizard-btn.solid:hover { background: transparent; color: var(--black); transform: translateY(-2px); }
+
+.wizard-btn.ghost {
+  background: transparent;
+  color: var(--black);
+  border: 1px solid var(--line);
+}
+
+.wizard-btn.ghost:hover { border-color: var(--black); transform: translateY(-2px); }
+
+/* ---- summary ---- */
+.summary {
+  background: var(--white);
+  border: 1px solid var(--line);
+  padding: 1.75rem;
+  position: sticky;
+  top: 1.5rem;
+}
+
+.summary h4 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 20px;
+  color: var(--black);
+  margin: 0 0 4px;
+}
+
+.summary .cap {
+  font-size: 9.5px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--grey);
+  margin: 0 0 1.5rem;
+}
+
+.sumlist { list-style: none; margin: 0; padding: 0; font-size: 14px; }
+
+.sumlist li {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--line);
+  font-weight: 300;
+}
+
+.sumlist li span:last-child { color: var(--black); white-space: nowrap; }
+.sumlist .muted span { color: var(--grey); }
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: 1.25rem;
+  padding-top: 1.15rem;
+  border-top: 1px solid var(--black);
+}
+
+.total b {
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--grey);
+  font-weight: 400;
+}
+
+.total .amt {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 26px;
+  color: var(--black);
+}
+
+.summary .when {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--grey);
+  margin-top: 1.25rem;
+  line-height: 1.8;
+}
+
+.summary .when b { color: var(--black); font-weight: 400; }
+
+/* ---- done ---- */
+.done {
+  border: 1px solid var(--black);
+  padding: 2rem;
+}
+
+.done h3 { color: var(--black); }
+
+.done .ref {
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--black);
+  margin: 1rem 0 0;
+}
+
+.recap {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--grey);
+  line-height: 1.9;
+  margin: 1rem 0 0;
+}
+
+.recap b { color: var(--black); font-weight: 400; }
+
+/* ---- date/time dropdowns ---- */
+.wizard-select {
+  height: 52px;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  background: transparent;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--black);
+  cursor: pointer;
+  padding: 0 2px;
+  width: 100%;
+  transition: border-color 0.3s var(--ease);
+}
+
+.wizard-select:focus {
+  outline: none;
+  border-bottom-color: var(--black);
+}
+
+.wizard-select:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ---- deposit notice (booking hero) ---- */
+.deposit-notice {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  max-width: 620px;
+  margin: 4px 0 0;
+  padding: 16px 18px;
+  border: 1px solid var(--black);
+  background: var(--white);
+}
+
+.deposit-icon {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--black);
+  color: var(--white);
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-style: normal;
+}
+
+.deposit-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.deposit-text strong {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--black);
+  font-weight: 400;
+}
+
+.deposit-text span {
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--grey);
+}
+
+/* ---- refund policy note ---- */
+.policy-note {
+  max-width: 620px;
+  margin: 14px 0 0;
+  padding: 14px 18px;
+  border-left: 2px solid var(--line);
+}
+
+.policy-note summary {
+  cursor: pointer;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--grey);
+  list-style: none;
+}
+
+.policy-note summary::-webkit-details-marker { display: none; }
+
+.policy-note summary::after {
+  content: "+";
+  float: right;
+  font-size: 14px;
+}
+
+.policy-note[open] summary::after { content: "–"; }
+
+.policy-note p {
+  font-size: 12.5px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--grey);
+  margin: 12px 0 0;
+}

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book — Yisu Beauty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="legacy-booking.css">
+<link rel="stylesheet" href="booking-wizard.css">
+</head>
+<body>
+
+<section class="salon-hero">
+  <a href="index.html" class="back-link">&larr; Yisu</a>
+  <h1>Book an appointment</h1>
+  <div class="deposit-notice">
+    <span class="deposit-icon">ℹ</span>
+    <div class="deposit-text">
+      <strong>R50 booking fee per service</strong>
+      <span>Paid now to secure your slot. The cost of the actual service is settled directly at the salon on the day — this fee is your deposit only.</span>
+    </div>
+  </div>
+</section>
+
+<div class="book-wrap" id="bookRoot">
+  <div class="booker">
+    <div>
+      <div class="steps" id="steps">
+        <span data-step="1">01 — Services</span>
+        <span data-step="2">02 — Date &amp; time</span>
+        <span data-step="3">03 — Your details</span>
+        <span data-step="4">04 — Confirm</span>
+      </div>
+
+      <!-- step 1 -->
+      <div class="panel" data-panel="1">
+        <h3>What would you like done?</h3>
+        <p class="hint">Select as many services as you like. Each carries a R50 booking fee.</p>
+        <div id="pickServices"></div>
+      </div>
+
+      <!-- step 2 -->
+      <div class="panel" data-panel="2">
+        <h3>When suits you?</h3>
+        <p class="hint">Open every day, 7am to 6pm. Pick your preferred day and time.</p>
+        <div class="fields">
+          <div class="field full">
+            <label for="dateSelect">Preferred day</label>
+            <select id="dateSelect" class="wizard-select">
+              <option value="">— Choose a day —</option>
+            </select>
+          </div>
+          <div class="field full">
+            <label for="timeSelect">Preferred time</label>
+            <select id="timeSelect" class="wizard-select" disabled>
+              <option value="">— Choose a day first —</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- step 3 -->
+      <div class="panel" data-panel="3">
+        <h3>Your details</h3>
+        <p class="hint">Used only to confirm your booking and remind you the day before.</p>
+        <div class="fields">
+          <div class="field"><label for="fname">Full name</label><input id="fname" type="text" autocomplete="name" placeholder="Your name"><span class="err">Enter your name so we know who to expect.</span></div>
+          <div class="field"><label for="fphone">Mobile number</label><input id="fphone" type="tel" autocomplete="tel" placeholder="082 123 4567"><span class="err">Enter a number we can reach you on.</span></div>
+          <div class="field full"><label for="femail">Email (optional)</label><input id="femail" type="email" autocomplete="email" placeholder="you@email.com"></div>
+          <div class="field full"><label for="fnotes">Anything we should know? (optional)</label><textarea id="fnotes" rows="3" placeholder="Length, colour, allergies, anything helpful."></textarea></div>
+        </div>
+      </div>
+
+      <!-- step 4 -->
+      <div class="panel" data-panel="4">
+        <h3>Check it over</h3>
+        <p class="hint">Confirm and we'll open WhatsApp with your booking ready to send. Nothing is charged online yet.</p>
+        <div class="recap" id="recap"></div>
+      </div>
+
+      <!-- done -->
+      <div class="panel" data-panel="5">
+        <div class="done">
+          <h3>Booking sent</h3>
+          <p style="margin:10px 0 0;color:var(--grey);font-weight:300;">WhatsApp should have opened with your details ready to send. If it didn't, tap below.</p>
+          <p class="ref" id="ref"></p>
+          <div class="navbtns">
+            <a class="wizard-btn solid" id="waAgain" href="#" target="_blank" rel="noopener">Open WhatsApp</a>
+            <button class="wizard-btn ghost" id="restart" type="button">Book again</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="navbtns" id="navbtns">
+        <button class="wizard-btn ghost" id="back" type="button">Back</button>
+        <button class="wizard-btn solid" id="next" type="button">Continue</button>
+      </div>
+    </div>
+
+    <aside class="summary" aria-live="polite">
+      <h4>Your booking</h4>
+      <p class="cap">Yisu Beauty</p>
+      <ul class="sumlist" id="sumlist"><li class="muted"><span>No services selected</span><span>—</span></li></ul>
+      <div class="total"><b>Booking fee</b><span class="amt" id="total">R0</span></div>
+      <p class="when" id="when">Select a service to begin.</p>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <p>Yisu &middot; Pure.Curated.Beauty &middot; 2026</p>
+</footer>
+
+<script>
+window.SALON_CONFIG = {
+  salonName: "Yisu Beauty",
+  refPrefix: "YB-",
+  categories: [
+    { name: "Hair", services: [
+      { id:"knotless", name:"Knotless" },
+      { id:"singles", name:"Singles" },
+      { id:"straightback", name:"Straight back" },
+      { id:"twist", name:"Twist" },
+      { id:"twostepslong", name:"Two steps (long)" },
+      { id:"twostepsshort", name:"Two steps (short)" },
+      { id:"boxbraids", name:"Box braids (long)" },
+      { id:"pondo", name:"Pondo" },
+      { id:"installation", name:"Installation" },
+      { id:"freehand", name:"Freehand" },
+      { id:"kinky", name:"Kinky braids" },
+      { id:"straightup", name:"Straight up" },
+      { id:"sewin", name:"Sew-in (weave)" }
+    ]},
+    { name: "Treatments", services: [
+      { id:"wash", name:"Wash" },
+      { id:"blowout", name:"Blowout relaxer" },
+      { id:"darklovely", name:"Dark and Lovely" },
+      { id:"organictreat", name:"Organic treatment" },
+      { id:"organicrelax", name:"Organic relaxer" },
+      { id:"shea", name:"Shea butter treatment" },
+      { id:"wigstraight", name:"Wig straightening" }
+    ]},
+    { name: "Mizani", services: [
+      { id:"mizanirelax", name:"Mizani relaxer" },
+      { id:"mizanibond", name:"Mizani Bondphorce" },
+      { id:"mizanisens", name:"Mizani Sensitive" }
+    ]},
+    { name: "Haircut", services: [
+      { id:"adultcut", name:"Adult haircut" },
+      { id:"kidscut", name:"Kids haircut" },
+      { id:"scurl", name:"S-curl" },
+      { id:"cutdyeblack", name:"Cut and dye (black)" },
+      { id:"cutdyecolour", name:"Cut and dye (colours)" }
+    ]},
+    { name: "Nails", services: [
+      { id:"acrylicshort", name:"Acrylic (short)" },
+      { id:"acryliclong", name:"Acrylic (long)" },
+      { id:"polygel", name:"Polygel" },
+      { id:"hardgel", name:"Hardgel" },
+      { id:"gelishmani", name:"Gelish (mani)" },
+      { id:"gelishpedi", name:"Gelish (pedi)" },
+      { id:"pedicurescrub", name:"Pedicure (scrub)" }
+    ]},
+    { name: "Lashes", services: [
+      { id:"clusterlash", name:"Cluster lash" },
+      { id:"individuallash", name:"Individual lash" }
+    ]},
+    { name: "Dreadlocks", services: [
+      { id:"twiststyle", name:"Twist and style" },
+      { id:"locstreatment", name:"Treatment" }
+    ]}
+  ]
+};
+</script>
+<script src="booking-engine.js"></script>
+
+</body>
+</html>

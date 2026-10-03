@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment received — Yisu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="legacy-booking.css">
+<link rel="stylesheet" href="booking-wizard.css">
+</head>
+<body>
+
+<section class="salon-hero">
+  <h1>Payment received</h1>
+  <p class="salon-address">One last step — confirm your booking on WhatsApp so the salon can prepare for you.</p>
+</section>
+
+<div class="book-wrap">
+  <div class="done" style="max-width:520px;margin:0 auto;">
+    <h3>Almost done</h3>
+    <p style="margin:10px 0 0;color:var(--grey);font-weight:300;line-height:1.7;">
+      Your R50 booking fee has been received. Tap the button below to open WhatsApp with your booking details ready to send — this confirms your appointment with the salon.
+    </p>
+    <p class="ref" id="ref"></p>
+    <div class="navbtns">
+      <a class="wizard-btn solid" id="waConfirm" href="#" target="_blank" rel="noopener">Confirm on WhatsApp</a>
+      <a class="wizard-btn ghost" href="index.html">Back to home</a>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <p>Yisu &middot; Pure.Curated.Beauty &middot; 2026</p>
+</footer>
+
+<script>
+  const WHATSAPP = "27680965235";
+
+  // Read booking details carried through in the URL from the booking wizard.
+  const params  = new URLSearchParams(window.location.search);
+  const salon   = params.get('salon')    || "Yisu Beauty";
+  const name    = params.get('name')     || "";
+  const phone   = params.get('phone')    || "";
+  const email   = params.get('email')    || "";
+  const date    = params.get('date')     || "";
+  const time    = params.get('time')     || "";
+  const service = params.get('service')  || "";
+  const notes   = params.get('notes')    || "";
+  const ref     = params.get('ref')      || ("YB-" + Math.random().toString(36).slice(2,8).toUpperCase());
+
+  document.getElementById('ref').textContent = "Reference: " + ref;
+
+  let msg = `Payment confirmed — ${salon}\nRef: ${ref}\n`;
+  if (name)    msg += `Name: ${name}\n`;
+  if (phone)   msg += `Phone: ${phone}\n`;
+  if (email)   msg += `Email: ${email}\n`;
+  if (date)    msg += `Date: ${date}${time ? ' at ' + time : ''}\n`;
+  if (service) msg += `Service: ${service}\n`;
+  msg += `Booking fee: R50 (paid)\n`;
+  if (notes)   msg += `Notes: ${notes}\n`;
+
+  const waLink = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`;
+  const waBtn = document.getElementById('waConfirm');
+  waBtn.href = waLink;
+
+  // Open WhatsApp automatically so the customer doesn't have to remember to tap.
+  window.open(waLink, '_blank');
+</script>
+
+</body>
+</html>
