@@ -295,11 +295,7 @@ a { color: inherit; }
 .story-portrait img {
   width: 100%; height: 100%;
   object-fit: cover;
-  filter: grayscale(100%);
-  transition: filter 0.8s var(--ease);
 }
-
-.story-portrait:hover img { filter: grayscale(0%); }
 
 .placeholder-slot {
   width: 100%; height: 100%;
@@ -374,11 +370,7 @@ a { color: inherit; }
 .manager-portrait img {
   width: 100%; height: 100%;
   object-fit: cover;
-  filter: grayscale(100%);
-  transition: filter 0.8s var(--ease);
 }
-
-.manager-portrait:hover img { filter: grayscale(0%); }
 
 .manager-label {
   font-size: 11px;
@@ -419,12 +411,10 @@ a { color: inherit; }
 .team-photo img {
   width: 100%; height: 100%;
   object-fit: cover;
-  filter: grayscale(100%);
-  transition: filter 0.7s var(--ease), transform 0.7s var(--ease);
+  transition: transform 0.7s var(--ease);
 }
 
 .team-card:hover .team-photo img {
-  filter: grayscale(0%);
   transform: scale(1.03);
 }
 
@@ -505,12 +495,10 @@ a { color: inherit; }
 .gallery-tile img {
   width: 100%; height: 100%;
   object-fit: cover;
-  filter: grayscale(100%);
-  transition: filter 0.7s var(--ease), transform 0.7s var(--ease);
+  transition: transform 0.7s var(--ease);
 }
 
 .gallery-tile:hover img {
-  filter: grayscale(0%);
   transform: scale(1.04);
 }
 
@@ -583,12 +571,6 @@ a { color: inherit; }
   height: 360px;
   border: 1px solid var(--line);
   overflow: hidden;
-  filter: grayscale(65%) contrast(1.05);
-  transition: filter 0.6s var(--ease);
-}
-
-.map-frame:hover {
-  filter: grayscale(0%);
 }
 
 .map-frame iframe {
