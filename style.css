@@ -940,3 +940,46 @@ a { color: inherit; }
   border-bottom: 1px solid var(--ink);
   padding-bottom: 2px;
 }
+
+/* ============================================================
+   HERO — PORTRAIT / PHONE LAYOUT
+   A wide image cropped with `cover` loses its left and right
+   edges on a tall, narrow screen, which cuts the logo off.
+   On portrait screens the image is shown whole (`contain`) and
+   the buttons sit beneath it on the same near-black background.
+   Must stay at the END of the file so it overrides the base hero.
+   ============================================================ */
+
+@media (max-width: 700px), (max-aspect-ratio: 1/1) {
+  .hero {
+    height: auto;
+    min-height: 82svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 72px;          /* clear the fixed nav */
+  }
+
+  .hero-image {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    aspect-ratio: 16 / 9;       /* change if your hero image has a different shape */
+  }
+
+  .hero-image .frame {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .hero-image::after { display: none; }
+
+  .hero-actions {
+    position: relative;
+    bottom: auto;
+    width: 100%;
+    margin-top: 32px;
+    padding-bottom: 48px;
+  }
+}
